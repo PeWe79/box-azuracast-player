@@ -3,6 +3,10 @@
  * Music / Radio definitions
  */
 const musicData = [];
+
+/**
+ * Process data
+ */
 function processData() {
 	musicData.forEach((_0x3ba6c9) => {});
 }
@@ -38,7 +42,7 @@ fetch("https://api.streamafrica.net/jcplayer/api.php?key=bankuboy9000")
 				getDataSelected(dataGet);
 				getMetaData(dataGet);
 			} catch (err) {
-				loadData(err);
+				checkError(err);
 			}
 		}
 
@@ -68,6 +72,17 @@ fetch("https://api.streamafrica.net/jcplayer/api.php?key=bankuboy9000")
 			document.getElementById("d-duration").innerHTML = mTime || "Unknown";
 			document.body.style.backgroundImage = "url(" + art + ")";
 		}
+
+    /**
+     * Callback metadata details
+     * Update to mediasession metadata
+     * 
+     * @param artist
+     * @param title
+     * @param album
+     * @param cover
+     * @param {*} callback 
+     */
 		function getMetaData(callback) {
 			if ("mediaSession" in navigator) {
 				const {
@@ -113,20 +128,13 @@ fetch("https://api.streamafrica.net/jcplayer/api.php?key=bankuboy9000")
 				navigator.mediaSession.metadata = new MediaMetadata(mData);
 			}
 		}
-		function loadData(_0x176556) {
-			console.error("Error loading data:", _0x176556);
-		}
-		function _0x39804b(_0x337809, _0x46562d) {
-			const _0x509a34 = document.querySelector(_0x337809);
-			_0x509a34 && (_0x509a34.innerHTML = _0x46562d);
-		}
-		function _0x260005(_0x140d85, _0x56a97f) {
-			const _0x36429b = document.querySelector(_0x140d85);
-			_0x36429b && (_0x36429b.src = _0x56a97f);
-		}
-		function _0x3e4f04(_0x5b069d, _0x2a76ae) {
-			const _0x5cf244 = document.querySelector(_0x5b069d);
-			_0x5cf244 && (_0x5cf244.href = _0x2a76ae);
+
+    /**
+     * Check error conditions
+     * @param {*} data 
+     */
+		function checkError(data) {
+			console.error("Error loading data:", data);
 		}
 
 		/**
@@ -188,6 +196,9 @@ fetch("https://api.streamafrica.net/jcplayer/api.php?key=bankuboy9000")
 			});
 		});
 
+    /**
+     * Get current music
+     */
 		function getCurrentMusic() {
 			getMusicData(musicData[currentMusic].api);
 			setTimeout(getCurrentMusic, 10000);
@@ -210,7 +221,6 @@ fetch("https://api.streamafrica.net/jcplayer/api.php?key=bankuboy9000")
 			playerBanner.src = mscDt.posterUrl;
 			playerBanner.setAttribute("alt", mscDt.title + " Album Poster");
 			document.body.style.backgroundImage = `url(${musicData[currentMusic].backgroundImage})`;
-			// document.body.style.backgroundImage = "url(" + mscDt.backgroundImage + ")"; // jangan dihapus
 			playerTitle.textContent = mscDt.title;
 			playerAlbum.textContent = mscDt.album;
 			playerYear.textContent = mscDt.year;
