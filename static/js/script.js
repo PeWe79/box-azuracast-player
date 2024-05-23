@@ -1,74 +1,7 @@
-// const _0x4fb01a = (function () {
-//     let _0xdb5cd5 = true
-//     return function (_0x4dbc22, _0x591289) {
-//       const _0x1324d8 = _0xdb5cd5
-//         ? function () {
-//             if (_0x591289) {
-//               const _0x5f0514 = _0x591289.apply(_0x4dbc22, arguments)
-//               return (_0x591289 = null), _0x5f0514
-//             }
-//           }
-//         : function () {}
-//       return (_0xdb5cd5 = false), _0x1324d8
-//     }
-//   })(),
-//   _0x5ccc58 = _0x4fb01a(this, function () {
-//     return _0x5ccc58
-//       .toString()
-//       .search('(((.+)+)+)+$')
-//       .toString()
-//       .constructor(_0x5ccc58)
-//       .search('(((.+)+)+)+$')
-//   })
-// _0x5ccc58()
-// const _0x579598 = (function () {
-//     let _0x3cd6e2 = true
-//     return function (_0x1deddd, _0x269edc) {
-//       const _0x4f5bf7 = _0x3cd6e2
-//         ? function () {
-//             if (_0x269edc) {
-//               const _0x26136d = _0x269edc.apply(_0x1deddd, arguments)
-//               return (_0x269edc = null), _0x26136d
-//             }
-//           }
-//         : function () {}
-//       _0x3cd6e2 = false
-//       return _0x4f5bf7
-//     }
-//   })(),
-//   _0xcc2cfb = _0x579598(this, function () {
-//     const _0x4a4ff8 = function () {
-//       let _0x365d2f
-//       try {
-//         _0x365d2f = Function(
-//           'return (function() {}.constructor("return this")( ));'
-//         )()
-//       } catch (_0xaa6fb9) {
-//         _0x365d2f = window
-//       }
-//       return _0x365d2f
-//     }
-//     const _0x3eea32 = _0x4a4ff8(),
-//       _0x149987 = (_0x3eea32.console = _0x3eea32.console || {}),
-//       _0x178e13 = [
-//         'log',
-//         'warn',
-//         'info',
-//         'error',
-//         'exception',
-//         'table',
-//         'trace',
-//       ]
-//     for (let _0x59d56b = 0; _0x59d56b < _0x178e13.length; _0x59d56b++) {
-//       const _0x46e388 = _0x579598.constructor.prototype.bind(_0x579598),
-//         _0x2e1045 = _0x178e13[_0x59d56b],
-//         _0x184f53 = _0x149987[_0x2e1045] || _0x46e388
-//       _0x46e388['__proto__'] = _0x579598.bind(_0x579598)
-//       _0x46e388.toString = _0x184f53.toString.bind(_0x184f53)
-//       _0x149987[_0x2e1045] = _0x46e388
-//     }
-//   })
-// _0xcc2cfb()
+"use strict";
+/**
+ * Music / Radio definitions
+ */
 const musicData = [];
 function processData() {
 	musicData.forEach((_0x3ba6c9) => {});
@@ -199,17 +132,18 @@ fetch("https://api.streamafrica.net/jcplayer/api.php?key=bankuboy9000")
 		const playlist = document.querySelector("[data-music-list]");
 		musicData.forEach((mt, np) => {
 			const ele = document.createElement("li");
-			ele.innerHTML =
-				'<button class="music-item ' +
-				(np === 0 ? "playing" : "") +
-				'" data-playlist-toggler data-playlist-item="' +
-				np +
-				'"><img src="' +
-				mt.posterUrl +
-				'" loading="lazy" width="500" height="500" alt="' +
-				mt.title +
-				' Album Poster" class="img-cover"><div class="item-icon"><span class="material-symbols-outlined"></span></div></button>';
-			playlist.appendChild(ele);
+      ele.innerHTML = 
+        `<li>
+          <button class="music-item ${np === 0 ? "playing" : ""}" data-playlist-toggler data-playlist-item="${np}">
+            <img src="${mt.posterUrl}" loading="lazy" width="500" height="500" alt="${mt.title} Album Poster"
+              class="img-cover">
+
+            <div class="item-icon">
+              <span class="material-symbols-outlined">equalizer</span>
+            </div>
+          </button>
+        </li>`;
+        playlist.appendChild(ele);
 		});
 
 		/**
@@ -281,26 +215,26 @@ fetch("https://api.streamafrica.net/jcplayer/api.php?key=bankuboy9000")
 		};
 		addEventOnElements(playlistItems, "click", changePlayerInfo);
 
-    /** update player duration */
-    const playerDuration = document.querySelector('[data-duration]');
-    const playerSeekRange = document.querySelector('[data-seek]');
+		/** update player duration */
+		const playerDuration = document.querySelector("[data-duration]");
+		const playerSeekRange = document.querySelector("[data-seek]");
 
-    /** pass seconds and get timcode formate */
-    const getTimecode = function (duration) {
-      const minutes = Math.floor(duration / 60);
-      const seconds = Math.ceil(duration - (minutes * 60));
-      const timecode = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-      return timecode;
-    }
+		/** pass seconds and get timcode formate */
+		const getTimecode = function (duration) {
+			const minutes = Math.floor(duration / 60);
+			const seconds = Math.ceil(duration - minutes * 60);
+			const timecode = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+			return timecode;
+		};
 
-    const updateDuration = function () {
-      playerSeekRange.max = Math.ceil(audioSource.duration);
-      playerDuration.textContent = getTimecode(Number(playerSeekRange.max));
-    }
-    audioSource.addEventListener('loadeddata', updateDuration);
+		const updateDuration = function () {
+			playerSeekRange.max = Math.ceil(audioSource.duration);
+			playerDuration.textContent = getTimecode(Number(playerSeekRange.max));
+		};
+		audioSource.addEventListener("loadeddata", updateDuration);
 
 		const playBtn = document.querySelector("[data-play-btn]");
-    let playInterval;
+		let playInterval;
 
 		const playMusic = function () {
 			audioSource.paused
@@ -308,7 +242,7 @@ fetch("https://api.streamafrica.net/jcplayer/api.php?key=bankuboy9000")
 				  audioSource.load(),
 				  audioSource.play(),
 				  playBtn.classList.add("active"),
-          playInterval = setInterval(updateRunningTime, 500))
+				  (playInterval = setInterval(updateRunningTime, 500)))
 				: (audioSource.pause(),
 				  audioSource.onended,
 				  (audioSource.currentTime = 0),
@@ -316,17 +250,17 @@ fetch("https://api.streamafrica.net/jcplayer/api.php?key=bankuboy9000")
 		};
 		playBtn.addEventListener("click", playMusic);
 
-    /**
-     * player running time update
-     */
-    const playerRunningTime = document.querySelector('[data-running-time');
-    const updateRunningTime = function () {
-      playerSeekRange.value = audioSource.currentTime;
-      playerRunningTime.textContent = getTimecode(audioSource.currentTime);
+		/**
+		 * player running time update
+		 */
+		const playerRunningTime = document.querySelector("[data-running-time");
+		const updateRunningTime = function () {
+			playerSeekRange.value = audioSource.currentTime;
+			playerRunningTime.textContent = getTimecode(audioSource.currentTime);
 
-      // updateRangeFill();
-      isMusicEnd();
-    }
+			updateRangeFill();
+			isMusicEnd();
+		};
 
 		/**
 		 * RANGE FILL WIDTH
@@ -334,7 +268,7 @@ fetch("https://api.streamafrica.net/jcplayer/api.php?key=bankuboy9000")
 		 * change 'rangeFill' width, while changing range value
 		 */
 		const ranges = document.querySelectorAll("[data-range]");
-		const _0x21e01c = document.querySelector("[data-range-fill]");
+		const rangeFill = document.querySelector("[data-range-fill]");
 
 		const updateRangeFill = function () {
 			let ele = this || ranges[0];
@@ -380,29 +314,29 @@ fetch("https://api.streamafrica.net/jcplayer/api.php?key=bankuboy9000")
 		playerSkipPrevBtn.addEventListener("click", skipPrev);
 		getCurrentMusic();
 
-    /**
-     * Volume
-     */
+		/**
+		 * Volume
+		 */
 		const playerVolumeRange = document.querySelector("[data-volume]");
 		const playerVolumeBtn = document.querySelector("[data-volume-btn]");
 		const changeVolume = function () {
-      audioSource.volume = playerVolumeRange.value;
-      audioSource.muted = false;
-      if (audioSource.volume <= 0.1) {
-        playerVolumeBtn.children[0].textContent = "volume_mute";
-      } else {
-        if (audioSource.volume <= 0.5) {
-          playerVolumeBtn.children[0].textContent = "volume_down";
-        } else {
-          playerVolumeBtn.children[0].textContent = "volume_up";
-        }
-      }
-    };
+			audioSource.volume = playerVolumeRange.value;
+			audioSource.muted = false;
+			if (audioSource.volume <= 0.1) {
+				playerVolumeBtn.children[0].textContent = "volume_mute";
+			} else {
+				if (audioSource.volume <= 0.5) {
+					playerVolumeBtn.children[0].textContent = "volume_down";
+				} else {
+					playerVolumeBtn.children[0].textContent = "volume_up";
+				}
+			}
+		};
 		playerVolumeRange.addEventListener("input", changeVolume);
 
-    /**
-     * Mute
-     */
+		/**
+		 * Mute
+		 */
 		const muteVolume = function () {
 			if (!audioSource.muted) {
 				audioSource.muted = true;
