@@ -34,14 +34,19 @@ fetch("https://api.streamafrica.net/jcplayer/api.php?key=bankuboy9000")
 				if (!resp.ok) {
 					throw new Error("HTTP error! Status: " + resp.status);
 				}
-				const hasil = await resp.json();
-				getApiData(hasil);
-				getMetaData(hasil);
+				const dataGet = await resp.json();
+				getDataSelected(dataGet);
+				getMetaData(dataGet);
 			} catch (err) {
 				loadData(err);
 			}
 		}
-		function getApiData(data) {
+
+    /**
+     * Get selected music data
+     * @param {*} data 
+     */
+		function getDataSelected(data) {
 			const {
 				title: title = station.title,
 				genre: genre = station.album,
