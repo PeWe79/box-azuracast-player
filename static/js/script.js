@@ -210,12 +210,10 @@ fetch(apiBase + "/api/nowplaying")
 			playlistItems[lastPlayedMusic].classList.remove("playing");
 			playlistItems[currentMusic].classList.add("playing");
 		};
-		playlistItems.forEach((data) => {
-			data.addEventListener("click", function () {
-				lastPlayedMusic = currentMusic;
-				currentMusic = Number(this.dataset.playlistItem);
-				changePlaylistItem();
-			});
+		addEventOnElements(playlistItems, "click", function () {
+			lastPlayedMusic = currentMusic;
+			currentMusic = Number(this.dataset.playlistItem);
+			changePlaylistItem();
 		});
 
 		/**
