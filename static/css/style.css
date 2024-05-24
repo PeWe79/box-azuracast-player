@@ -93,8 +93,6 @@
 }
 
 
-
-
 /*-----------------------------------*\
   #RESET
 \*-----------------------------------*/
@@ -167,9 +165,6 @@ body.modalActive { overflow: hidden; }
 body:hover::-webkit-scrollbar-thumb { background-color: var(--surface-variant); }
 
 
-
-
-
 /*-----------------------------------*\
   #REUSED STYLE
 \*-----------------------------------*/
@@ -236,9 +231,6 @@ body:hover::-webkit-scrollbar-thumb { background-color: var(--surface-variant); 
 }
 
 
-
-
-
 /*-----------------------------------*\
   #TOP APP BAR
 \*-----------------------------------*/
@@ -259,10 +251,6 @@ body:hover::-webkit-scrollbar-thumb { background-color: var(--surface-variant); 
 }
 
 .logo { gap: 12px; }
-
-
-
-
 
 
 /*-----------------------------------*\
@@ -307,7 +295,7 @@ body:hover::-webkit-scrollbar-thumb { background-color: var(--surface-variant); 
 }
 
 .label-wrapper span:first-child::after {
-  content: "|";
+  /* content: "|"; */
   display: inline-block;
   margin-inline: 4px;
 }
@@ -390,9 +378,6 @@ body:hover::-webkit-scrollbar-thumb { background-color: var(--surface-variant); 
 .player-control .btn-icon.active .active-icon { display: block; }
 
 
-
-
-
 /*-----------------------------------*\
   #PLAYLIST
 \*-----------------------------------*/
@@ -471,10 +456,6 @@ body:hover::-webkit-scrollbar-thumb { background-color: var(--surface-variant); 
   opacity: 0.5;
 }
 
-
-
-
-
 /*-----------------------------------*\
   #MEDIA QUERIES
 \*-----------------------------------*/
@@ -491,8 +472,6 @@ body:hover::-webkit-scrollbar-thumb { background-color: var(--surface-variant); 
 
   body { background-size: 100%; }
 
-
-
   /**
    * PLAYER
    */
@@ -502,10 +481,6 @@ body:hover::-webkit-scrollbar-thumb { background-color: var(--surface-variant); 
   .player .container { max-width: 540px; }
 
 }
-
-
-
-
 
 /**
  * responsive for large than 992px screen
@@ -528,8 +503,6 @@ body:hover::-webkit-scrollbar-thumb { background-color: var(--surface-variant); 
 
   }
 
-
-
   /**
    * RESET
    */
@@ -540,8 +513,6 @@ body:hover::-webkit-scrollbar-thumb { background-color: var(--surface-variant); 
   }
 
   article { display: flex; }
-
-
 
   /**
    * REUSED STYLE
@@ -554,15 +525,11 @@ body:hover::-webkit-scrollbar-thumb { background-color: var(--surface-variant); 
 
   .btn-icon .material-symbols-outlined { font-size: 2.8rem; }
 
-
-
   /**
    * TOP APP BAR
    */
 
   .top-bar-actions { display: none; }
-
-
 
   /**
    * PLAYER
@@ -579,7 +546,7 @@ body:hover::-webkit-scrollbar-thumb { background-color: var(--surface-variant); 
   .player .container {
     max-width: 1200px;
     grid-template-columns: 0.8fr 1fr;
-    grid-template-rows: 1fr;
+    /* grid-template-rows: 1fr; */
     gap: 48px;
     max-height: 500px;
     height: 100%;
@@ -635,8 +602,6 @@ body:hover::-webkit-scrollbar-thumb { background-color: var(--surface-variant); 
     gap: 8px;
   }
 
-
-
   /**
    * PLAYLIST
    */
@@ -662,10 +627,6 @@ body:hover::-webkit-scrollbar-thumb { background-color: var(--surface-variant); 
   }
 
 }
-
-
-
-
 
 /**
  * responsive for large than 1200px screen

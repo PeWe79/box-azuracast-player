@@ -4,38 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 
-      - primary meta tags
-    -->
+    <!-- ./primary meta tags -->
     <title>Radio Player</title>
     <meta name="title" content="Radio Player">
 
-    <!-- 
-      - favicon
-    -->
-    <link rel="shortcut icon" href="https://icdn2.streamafrica.net/boxradiostacks/654038af9226e.jpg">
+    <!-- ./favicon -->
+    <link rel="shortcut icon" href="./favicon.svg">
     
-    <!-- 
-      - google font link
-    -->
+    <!-- ./google font link -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
     
-    <!-- 
-      - material icon font
-    -->
+    <!-- ./material icon font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,1,0" />
-
-    <!-- 
-      - custom css link
-    -->
+    
+    <!-- ./custom css link -->
     <link rel="stylesheet" href="./static/css/style.css">
   </head>
   <body>
-    <!-- 
-    - #TOP APP BAR
-  -->
+    <!-- ./app bar -->
     <div class="top-bar wrapper">
       <div class="logo wrapper">
         <span class="material-symbols-outlined">graphic_eq</span>
@@ -49,19 +37,17 @@
     </div>
     <main>
       <article>
-        <!-- 
-        - #PLAYER
-      -->
+        <!-- ./player -->
         <div class="player">
           <div class="container">
             <figure class="music-banner">
-              <img id="hey" src="https://icdn2.streamafrica.net/boxradiostacks/1aa87fd4cba7cb17.jpg" width="800" height="800" alt="Loading..." class="img-cover" data-player-banner>
+              <img id="hey" src="./static/images/misc/boxradio.png" width="800" height="800" alt="Loading..." class="img-cover" data-player-banner>
             </figure>
             <div class="music-content">
               <h2 id="text" class="headline-sm" data-title>Loading....</h2>
               <p class="label-lg label-wrapper wrapper">
                 <span id="album" data-album>Loading...</span>
-                <span id="duration" data-year>Loading...</span>
+                <span id="duration" data-year></span>
               </p>
               <p id="artist" class="label-md artist" data-artist>Loading...</p>
               <div class="seek-control">
@@ -72,7 +58,7 @@
                   </div>
                   <div class="duration-label wrapper">
                     <span class="label-md" data-running-time>0:00</span>
-                    <span id="d-duration" class="label-md" data-duration>Live</span>
+                    <span id="d-duration" class="label-md" data-duration>1:00</span>
                   </div>
                 </div>
                 <div class="volume">
@@ -88,7 +74,7 @@
               <div class="player-control wrapper">
                 <button class="btn-icon" data-repeat>
                   <a id="spotify" href="https://open.spotify.com" target="_blank" rel="noopener noreferrer">
-                    <img id="s_logo" src="./static/images/misc/sss.png" width="50" height="60">
+                    <img id="s_logo" src="./static/images/misc/spotify.png" width="50" height="60">
                   </a>
                 </button>
                 <button class="btn-icon" data-skip-prev>
@@ -105,18 +91,14 @@
             </div>
           </div>
         </div>
-        <!-- 
-        - #PLAYLIST
-      -->
+        <!-- ./playlist -->
         <div class="playlist" data-playlist>
           <ul class="music-list" data-music-list></ul>
         </div>
         <div class="overlay" data-playlist-toggler data-overlay></div>
       </article>
     </main>
-    <!-- 
-    - custom js link
-  -->
+    <!-- ./javascipt -->
     <script src="./static/js/script.js"></script>
     </body>
 </html>

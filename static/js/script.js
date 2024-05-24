@@ -3,31 +3,37 @@
  * Music / Radio definitions
  */
 const musicData = [];
+const apiBase = "https://s1.cloudmu.id";
 
 /**
  * Process data
  */
 function processData() {
-	musicData.forEach((_0x3ba6c9) => {});
+	musicData.forEach((_data) => {});
 }
-fetch("https://api.streamafrica.net/jcplayer/api.php?key=bankuboy9000")
+
+fetch(apiBase + "/api/nowplaying")
 	.then((res) => res.json())
 	.then((data) => {
 		data.forEach((reslt) => {
 			const apiData = {
-				posterUrl: reslt.posterUrl,
-				bgimg: reslt.bgimg,
-				title: reslt.title,
-				album: reslt.album,
-				year: reslt.year,
-				artist: reslt.artist,
-				streamUrl: reslt.stream_url,
-				api: reslt.api,
-				musicPath: reslt.musicPath,
+				posterUrl: reslt.now_playing.song.art,
+				bgimg: reslt.now_playing.song.art,
+				title: reslt.now_playing.song.title,
+				album: reslt.now_playing.song.album,
+				name: reslt.station.description,
+				artist: reslt.now_playing.song.artist,
+				streamUrl: reslt.station.listen_url,
+				api:
+					apiBase +
+					"/api/nowplaying_static/" +
+					reslt.station.shortcode +
+					".json",
+				musicPath: reslt.station.listen_url,
 			};
 			musicData.push(apiData);
 		});
-    
+
 		const addEventOnElements = function (elements, eventType, callback) {
 			for (let i = 0, len = elements.length; i < len; i++) {
 				elements[i].addEventListener(eventType, callback);
@@ -40,50 +46,60 @@ fetch("https://api.streamafrica.net/jcplayer/api.php?key=bankuboy9000")
 					throw new Error("HTTP error! Status: " + resp.status);
 				}
 				const dataGet = await resp.json();
-				getDataSelected(dataGet);
-				getMetaData(dataGet);
+				getDataSelected(dataGet.now_playing.song);
+				getMetaData(dataGet.now_playing.song);
+				getDuration(dataGet.now_playing);
 			} catch (err) {
 				checkError(err);
+				// console.log("Error get : " + err);
 			}
 		}
 
-    /**
-     * Get selected music data
-     * @param {*} data 
-     */
+		/**
+		 * Get selected music data
+		 * @param {*} data
+		 */
 		function getDataSelected(data) {
 			const {
-				title: title = station.title,
-				genre: genre = station.album,
-				art: art = station.posterUrl,
-				stream: stream = "#",
-				logo: logo = "default_logo_url",
 				artist: artist = station.artist,
-				year: year = "Unknown",
-				time: mTime,
+				title: title = station.title,
+				album: album = station.album || "Unknown",
+				art: art = station.posterUrl,
+				stream: stream = "https://open.spotify.com/search/" +
+					encodeURIComponent(artist + " - " + title),
+				logo: logo = "./static/images/misc/spotify.png",
+				// year: year = "Unknown",
 			} = data;
 			document.getElementById("text").innerHTML = title;
-			document.title = "JC Player Pro";
-			document.getElementById("album").innerHTML = genre;
+			document.title = "Radio Player";
+			document.getElementById("album").innerHTML = album;
 			document.getElementById("hey").src = art;
 			document.getElementById("spotify").href = stream;
 			document.getElementById("s_logo").src = logo;
 			document.getElementById("artist").innerHTML = artist;
-			document.getElementById("duration").innerHTML = year;
-			document.getElementById("d-duration").innerHTML = mTime || "Unknown";
+			// document.getElementById("duration").innerHTML = year;
 			document.body.style.backgroundImage = "url(" + art + ")";
 		}
 
-    /**
-     * Callback metadata details
-     * Update to mediasession metadata
-     * 
-     * @param artist
-     * @param title
-     * @param album
-     * @param cover
-     * @param {*} callback 
-     */
+		/**
+		 * Get duration
+		 */
+		function getDuration(callback) {
+			const time = callback.duration;
+			const mTime = getTimecode(time);
+			document.getElementById("d-duration").innerHTML = mTime || "Unknown";
+		}
+
+		/**
+		 * Callback metadata details
+		 * Update to mediasession metadata
+		 *
+		 * @param artist
+		 * @param title
+		 * @param album
+		 * @param cover
+		 * @param {*} callback
+		 */
 		function getMetaData(callback) {
 			if ("mediaSession" in navigator) {
 				const {
@@ -130,10 +146,10 @@ fetch("https://api.streamafrica.net/jcplayer/api.php?key=bankuboy9000")
 			}
 		}
 
-    /**
-     * Check error conditions
-     * @param {*} data 
-     */
+		/**
+		 * Check error conditions
+		 * @param {*} data
+		 */
 		function checkError(data) {
 			console.error("Error loading data:", data);
 		}
@@ -146,10 +162,16 @@ fetch("https://api.streamafrica.net/jcplayer/api.php?key=bankuboy9000")
 		const playlist = document.querySelector("[data-music-list]");
 		musicData.forEach((mt, np) => {
 			const ele = document.createElement("li");
-      ele.innerHTML = 
-        `<li>
-          <button class="music-item ${np === 0 ? "playing" : ""}" data-playlist-toggler data-playlist-item="${np}">
-            <img src="${mt.posterUrl}" loading="lazy" width="500" height="500" alt="${mt.title} Album Poster"
+			ele.innerHTML = `<li>
+					<p class="label-md" id="station">${mt.name}</p>
+          <button class="music-item ${
+						np === 0 ? "playing" : ""
+					}" data-playlist-toggler data-playlist-item="${np}">
+            <img src="${
+							mt.posterUrl
+						}" loading="lazy" width="500" height="500" alt="${
+				mt.title
+			} Album Poster"
               class="img-cover">
 
             <div class="item-icon">
@@ -157,7 +179,7 @@ fetch("https://api.streamafrica.net/jcplayer/api.php?key=bankuboy9000")
             </div>
           </button>
         </li>`;
-        playlist.appendChild(ele);
+			playlist.appendChild(ele);
 		});
 
 		/**
@@ -197,9 +219,9 @@ fetch("https://api.streamafrica.net/jcplayer/api.php?key=bankuboy9000")
 			});
 		});
 
-    /**
-     * Get current music
-     */
+		/**
+		 * Get current music
+		 */
 		function getCurrentMusic() {
 			getMusicData(musicData[currentMusic].api);
 			setTimeout(getCurrentMusic, 10000);
@@ -212,7 +234,7 @@ fetch("https://api.streamafrica.net/jcplayer/api.php?key=bankuboy9000")
 		const playerBanner = document.querySelector("[data-player-banner]");
 		const playerTitle = document.querySelector("[data-title]");
 		const playerAlbum = document.querySelector("[data-album]");
-		const playerYear = document.querySelector("[data-year]");
+		// const playerYear = document.querySelector("[data-year]");
 		const playerArtist = document.querySelector("[data-artist]");
 
 		const audioSource = new Audio(musicData[currentMusic].musicPath);
@@ -224,7 +246,7 @@ fetch("https://api.streamafrica.net/jcplayer/api.php?key=bankuboy9000")
 			document.body.style.backgroundImage = `url(${musicData[currentMusic].backgroundImage})`;
 			playerTitle.textContent = mscDt.title;
 			playerAlbum.textContent = mscDt.album;
-			playerYear.textContent = mscDt.year;
+			// playerYear.textContent = mscDt.year;
 			playerArtist.textContent = mscDt.artist;
 			audioSource.src = mscDt.musicPath;
 			playMusic();
@@ -253,16 +275,17 @@ fetch("https://api.streamafrica.net/jcplayer/api.php?key=bankuboy9000")
 		let playInterval;
 
 		const playMusic = function () {
-			audioSource.paused
-				? (getMusicData(musicData[currentMusic].api),
-				  audioSource.load(),
-				  audioSource.play(),
-				  playBtn.classList.add("active"),
-				  (playInterval = setInterval(updateRunningTime, 500)))
-				: (audioSource.pause(),
-				  audioSource.onended,
-				  (audioSource.currentTime = 0),
-				  playBtn.classList.remove("active"));
+			if (audioSource.paused) {
+				getMusicData(musicData[currentMusic].api);
+				audioSource.load();
+				audioSource.play();
+				playBtn.classList.add("active");
+				playInterval = setInterval(updateRunningTime, 500);
+			} else {
+				audioSource.pause();
+				playBtn.classList.remove("active");
+				clearInterval(playInterval);
+			}
 		};
 		playBtn.addEventListener("click", playMusic);
 
@@ -294,11 +317,28 @@ fetch("https://api.streamafrica.net/jcplayer/api.php?key=bankuboy9000")
 		};
 		addEventOnElements(ranges, "input", updateRangeFill);
 
+		/**
+		 * SEEK MUSIC
+		 *
+		 * seek music while changing player seek range
+		 */
+		const seek = function () {
+			audioSource.currentTime = playerSeekRange.value;
+			playerRunningTime.textContent = getTimecode(playerSeekRange.value);
+		};
+		playerSeekRange.addEventListener("input", seek);
+
+		/**
+		 * End music
+		 */
 		const isMusicEnd = function () {
-			audioSource.ended &&
-				(playBtn.classList.remove("active"),
-				(audioSource.currentTime = 0),
-				updateRangeFill());
+			if (audioSource.ended) {
+				playBtn.classList.remove("active");
+				audioSource.currentTime = 0;
+				playerSeekRange.value = audioSource.currentTime;
+				playerRunningTime.textContent = getTimecode(audioSource.currentTime);
+				updateRangeFill();
+			}
 		};
 
 		/**
@@ -306,12 +346,12 @@ fetch("https://api.streamafrica.net/jcplayer/api.php?key=bankuboy9000")
 		 */
 		const playerSkipNextBtn = document.querySelector("[data-skip-next]");
 		const skipNext = function () {
-			(lastPlayedMusic = currentMusic),
-				currentMusic >= musicData.length - 1
-					? (currentMusic = 0)
-					: currentMusic++,
-				changePlayerInfo(),
-				changePlaylistItem();
+			lastPlayedMusic = currentMusic;
+			currentMusic >= musicData.length - 1
+				? (currentMusic = 0)
+				: currentMusic++;
+			changePlayerInfo();
+			changePlaylistItem();
 		};
 		playerSkipNextBtn.addEventListener("click", skipNext);
 

@@ -1,3 +1,3 @@
 ## Box Radio player.
 
-Stream africa radio player
+Streaming AzuraCast player. Grab All stations from AzuraCast radio station.
