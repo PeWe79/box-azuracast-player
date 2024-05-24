@@ -161,27 +161,21 @@ fetch(apiBase + "/api/nowplaying")
 		 * add all music in playlist, from 'musicData'
 		 */
 		const playlist = document.querySelector("[data-music-list]");
-		musicData.forEach((mt, np) => {
-			const ele = document.createElement("li");
-			ele.innerHTML = `<li>
-					<p class="label-md" id="station">${mt.name}</p>
-          <button class="music-item ${
-						np === 0 ? "playing" : ""
-					}" data-playlist-toggler data-playlist-item="${np}">
-            <img src="${
-							mt.posterUrl
-						}" loading="lazy" width="500" height="500" alt="${
-				mt.title
-			} Album Poster"
-              class="img-cover">
+		for (let i = 0, len = musicData.length; i < len; i++) {
+			playlist.innerHTML += `
+				<li>
+					<p class="label-md" id="station">${musicData[i].name}</p>
+					<button class="music-item ${i === 0 ? "playing" : ""}" data-playlist-toggler data-playlist-item="${i}">
+						<img src="${musicData[i].posterUrl}" width="800" height="800" alt="${musicData[i].title} Album Poster"
+							class="img-cover">
 
-            <div class="item-icon">
-              <span class="material-symbols-outlined">equalizer</span>
-            </div>
-          </button>
-        </li>`;
-			playlist.appendChild(ele);
-		});
+						<div class="item-icon">
+							<span class="material-symbols-outlined">equalizer</span>
+						</div>
+					</button>
+				</li>
+			`;
+		}
 
 		/**
 		 * Playlist item
@@ -205,12 +199,15 @@ fetch(apiBase + "/api/nowplaying")
 		 * and add active state in clicked music
 		 */
 		const playlistItems = document.querySelectorAll("[data-playlist-item]");
+
 		let currentMusic = 0;
 		let lastPlayedMusic = 0;
+
 		const changePlaylistItem = () => {
 			playlistItems[lastPlayedMusic].classList.remove("playing");
 			playlistItems[currentMusic].classList.add("playing");
 		};
+
 		addEventOnElements(playlistItems, "click", function () {
 			lastPlayedMusic = currentMusic;
 			currentMusic = Number(this.dataset.playlistItem);
@@ -249,7 +246,6 @@ fetch(apiBase + "/api/nowplaying")
 			audioSource.src = musicData[currentMusic].musicPath;
 
 			audioSource.addEventListener("loadeddata", updateDuration);
-			console.log("DATA ==> ", playerAlbum.textContent);
 			playMusic();
 		};
 		addEventOnElements(playlistItems, "click", changePlayerInfo);
@@ -277,7 +273,6 @@ fetch(apiBase + "/api/nowplaying")
 
 		const playMusic = function () {
 			if (audioSource.paused) {
-				getMusicData(musicData[currentMusic].api);
 				audioSource.load();
 				audioSource.play();
 				playBtn.classList.add("active");
