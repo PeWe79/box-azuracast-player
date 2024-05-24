@@ -3,7 +3,8 @@
  * Music / Radio definitions
  */
 const musicData = [];
-const apiBase = "https://s1.cloudmu.id";
+// AzuraCast base
+const apiBase = "https://your-azuracast-server.com";
 
 /**
  * Process data

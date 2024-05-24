@@ -2,6 +2,24 @@
 
 Streaming AzuraCast player. Grab All stations from AzuraCast radio station.
 
+## Screenshots
+
+![Demo Screenshots](https://raw.githubusercontent.com/PeWe79/box-azuracast-player/main/static/images/thumbs.png)
+
+
+## Documentation.
+
+Open the [script.js](https://github.com/PeWe79/box-azuracast-player/blob/main/static/js/script.js) file and edit the line below :
+
+```javascript
+// AzuraCast base
+const apiBase = "https://your-azuracast-server.com";
+
+```
+
+## Installation
+Just put the files in your server or use Free Hosting
+
 ## License
 
 [MIT](https://github.com/codewithsadee/music-player?tab=MIT-1-ov-file)
