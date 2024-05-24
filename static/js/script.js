@@ -237,15 +237,18 @@ fetch(apiBase + "/api/nowplaying")
 		const audioSource = new Audio(musicData[currentMusic].musicPath);
 
 		const changePlayerInfo = () => {
-			const mscDt = musicData[currentMusic];
-			playerBanner.src = mscDt.posterUrl;
-			playerBanner.setAttribute("alt", mscDt.title + " Album Poster");
+			playerBanner.src = musicData[currentMusic].posterUrl;
+			playerBanner.setAttribute("alt", `${musicData[currentMusic].title} Album Poster`);
 			document.body.style.backgroundImage = `url(${musicData[currentMusic].backgroundImage})`;
-			playerTitle.textContent = mscDt.title;
-			playerAlbum.textContent = mscDt.album;
-			// playerYear.textContent = mscDt.year;
-			playerArtist.textContent = mscDt.artist;
-			audioSource.src = mscDt.musicPath;
+			playerArtist.textContent = musicData[currentMusic].artist;
+			playerTitle.textContent = musicData[currentMusic].title;
+			playerAlbum.textContent = musicData[currentMusic].album;
+			// playerYear.textContent = musicData[currentMusic].year;
+
+			audioSource.src = musicData[currentMusic].musicPath;
+
+			audioSource.addEventListener("loadeddata", updateDuration);
+			console.log("DATA ==> ", playerAlbum.textContent);
 			playMusic();
 		};
 		addEventOnElements(playlistItems, "click", changePlayerInfo);
