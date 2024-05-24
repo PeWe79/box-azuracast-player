@@ -188,16 +188,15 @@ fetch(apiBase + "/api/nowplaying")
 		 * and add active state in clicked music
 		 */
 		const playlistSideModal = document.querySelector("[data-playlist]");
+		const playlistTogglers = document.querySelectorAll("[data-playlist-toggler]");
 		const overlay = document.querySelector("[data-overlay]");
-		document.addEventListener("click", (_0x50363e) => {
-			const playlistTogglers = _0x50363e.target.closest(
-				"[data-playlist-toggler]"
-			);
-			playlistTogglers &&
-				(playlistSideModal.classList.toggle("active"),
-				overlay.classList.toggle("active"),
-				document.body.classList.toggle("modalActive"));
-		});
+
+		const togglePlaylist = function () {
+			playlistSideModal.classList.toggle("active");
+			overlay.classList.toggle("active");
+			document.body.classList.toggle("modalActive");
+		}
+		addEventOnElements(playlistTogglers, "click", togglePlaylist);
 
 		/**
 		 * Playlist item
