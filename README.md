@@ -1,1 +1,3 @@
-## Just another Radio player.
+## Box Radio player.
+
+Stream africa radio player
