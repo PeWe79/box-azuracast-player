@@ -1,3 +1,19 @@
+/*-----------------------------------*\
+  #style.css
+\*-----------------------------------*/
+
+/**
+ * copyright 2022 codewithsadee
+ */
+
+
+
+
+
+/*-----------------------------------*\
+  #CUSTOM PROPERTY
+\*-----------------------------------*/
+
 :root {
 
   /**
@@ -42,8 +58,8 @@
 
   --ff-inter: 'Inter', sans-serif;
 
-  --headline-sm: 2.0rem;
-  --title-lg: 2.0rem;
+  --headline-sm: 2.4rem;
+  --title-lg: 2.2rem;
   --label-lg: 1.4rem;
   --label-md: 1.2rem;
   
@@ -64,6 +80,7 @@
   --radius-24: 24px;
   --radius-16: 16px;
   --radius-12: 12px;
+  --radius-10: 10px;
   --radius-pill: 100px;
   --radius-circle: 50%;
 
@@ -77,20 +94,7 @@
 }
 
 
-@font-face {
-    font-family: frizon;
-    src: url("../fonts/frizon.ttf");
-}
 
-@font-face {
-    font-family: prettysans;
-    src: url("../fonts/ss.ttf");
-}
-
-@font-face {
-    font-family: akira;
-    src: url("../fonts/akira.ttf");
-}
 
 
 /*-----------------------------------*\
@@ -165,11 +169,14 @@ body.modalActive { overflow: hidden; }
 body:hover::-webkit-scrollbar-thumb { background-color: var(--surface-variant); }
 
 
+
+
+
 /*-----------------------------------*\
   #REUSED STYLE
 \*-----------------------------------*/
 
-.material-symbols-outlined {
+.material-symbols-rounded {
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' -25, 'opsz' 24;
   width: 1em;
   height: 1em;
@@ -183,15 +190,14 @@ body:hover::-webkit-scrollbar-thumb { background-color: var(--surface-variant); 
 }
 
 .title-lg {
-    font-family: prettysans;
   font-size: var(--title-lg);
   font-weight: var(--fw-400);
 }
 
 .btn-icon {
   color: var(--on-surface-variant);
-  width: 70px;
-  height: 70px;
+  width: 40px;
+  height: 40px;
   display: grid;
   place-items: center;
   border-radius: var(--radius-circle);
@@ -210,7 +216,6 @@ body:hover::-webkit-scrollbar-thumb { background-color: var(--surface-variant); 
 }
 
 .headline-sm {
-    font-family: akira;
   font-size: var(--headline-sm);
   font-weight: var(--fw-400);
 }
@@ -219,13 +224,11 @@ body:hover::-webkit-scrollbar-thumb { background-color: var(--surface-variant); 
 .label-md { font-weight: var(--fw-500); }
 
 .label-lg {
-    font-family: prettysans;
   font-size: var(--label-lg);
   letter-spacing: 0.1px;
 }
 
 .label-md {
-    font-family: prettysans;
   font-size: var(--label-md);
   letter-spacing: 0.5px;
 }
@@ -285,7 +288,7 @@ body:hover::-webkit-scrollbar-thumb { background-color: var(--surface-variant); 
   margin-inline: auto;
   align-self: center;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: var(--radius-10);
 }
 
 .label-wrapper {
@@ -429,7 +432,7 @@ body:hover::-webkit-scrollbar-thumb { background-color: var(--surface-variant); 
 
 .music-item.playing .item-icon { opacity: 1; }
 
-.music-item .item-icon .material-symbols-outlined {
+.music-item .item-icon .material-symbols-rounded {
   color: var(--primary);
   font-size: 3rem;
 }
@@ -498,7 +501,7 @@ body:hover::-webkit-scrollbar-thumb { background-color: var(--surface-variant); 
      * typography
      */
 
-    --headline-sm: 2.5rem;
+    --headline-sm: 4.2rem;
     --label-lg: 2.2rem;
 
   }
@@ -519,11 +522,12 @@ body:hover::-webkit-scrollbar-thumb { background-color: var(--surface-variant); 
    */
 
   .btn-icon {
-    width: 70px;
-    height: 70px;
+    width: 54px;
+    height: 54px;
   }
 
-  .btn-icon .material-symbols-outlined { font-size: 2.8rem; }
+  .btn-icon .material-symbols-rounded { font-size: 2.8rem; }
+
 
   /**
    * TOP APP BAR
@@ -602,6 +606,8 @@ body:hover::-webkit-scrollbar-thumb { background-color: var(--surface-variant); 
     gap: 8px;
   }
 
+
+
   /**
    * PLAYLIST
    */
@@ -622,11 +628,15 @@ body:hover::-webkit-scrollbar-thumb { background-color: var(--surface-variant); 
     outline: 2px solid var(--primary);
   }
 
-  .music-item .item-icon .material-symbols-outlined {
-    font-size: 5.0rem;
+  .music-item .item-icon .material-symbols-rounded {
+    font-size: 3.6rem;
   }
 
 }
+
+
+
+
 
 /**
  * responsive for large than 1200px screen

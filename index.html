@@ -9,7 +9,7 @@
     <meta name="title" content="Radio Player">
 
     <!-- ./favicon -->
-    <link rel="shortcut icon" href="./favicon.svg">
+    <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
     
     <!-- ./google font link -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
     
     <!-- ./material icon font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,1,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,-25" />
     
     <!-- ./custom css link -->
     <link rel="stylesheet" href="./static/css/style.css">
@@ -26,12 +26,12 @@
     <!-- ./app bar -->
     <div class="top-bar wrapper">
       <div class="logo wrapper">
-        <span class="material-symbols-outlined">graphic_eq</span>
+        <span class="material-symbols-rounded">graphic_eq</span>
         <h1 class="title-lg">Radio Player</h1>
       </div>
       <div class="top-bar-actions">
         <button class="btn-icon" data-playlist-toggler>
-          <span class="material-symbols-outlined">expand_more</span>
+          <span class="material-symbols-rounded">expand_more</span>
         </button>
       </div>
     </div>
@@ -63,7 +63,7 @@
                 </div>
                 <div class="volume">
                   <button class="btn-icon" data-volume-btn>
-                    <span class="material-symbols-outlined">volume_up</span>
+                    <span class="material-symbols-rounded">volume_up</span>
                   </button>
                   <div class="range-wrapper">
                     <input type="range" step="0.05" max="1" value="1" class="range" data-range data-volume>
@@ -78,14 +78,14 @@
                   </a>
                 </button>
                 <button class="btn-icon" data-skip-prev>
-                  <span class="material-symbols-outlined">skip_previous</span>
+                  <span class="material-symbols-rounded">skip_previous</span>
                 </button>
                 <button class="btn-icon play" data-play-btn>
-                  <span class="material-symbols-outlined default-icon">play_arrow</span>
-                  <span class="material-symbols-outlined active-icon">stop</span>
+                  <span class="material-symbols-rounded default-icon">play_arrow</span>
+                  <span class="material-symbols-rounded active-icon">stop</span>
                 </button>
                 <button class="btn-icon" data-skip-next>
-                  <span class="material-symbols-outlined">skip_next</span>
+                  <span class="material-symbols-rounded">skip_next</span>
                 </button>
               </div>
             </div>

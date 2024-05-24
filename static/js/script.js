@@ -170,7 +170,7 @@ fetch(apiBase + "/api/nowplaying")
 							class="img-cover">
 
 						<div class="item-icon">
-							<span class="material-symbols-outlined">equalizer</span>
+							<span class="material-symbols-rounded">equalizer</span>
 						</div>
 					</button>
 				</li>
