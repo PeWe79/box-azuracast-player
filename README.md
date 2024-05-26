@@ -20,6 +20,11 @@ const apiBase = "https://your-azuracast-server.com";
 ## Installation
 Just put the files in your server or use Free Hosting
 
+## TODO
+* Add support fetch cover art from iTuns or Deezer.
+* Get Station image logo.
+* Make songe request.
+
 ## License
 
 [MIT](https://github.com/codewithsadee/music-player?tab=MIT-1-ov-file)
