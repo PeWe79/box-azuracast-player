@@ -22,7 +22,7 @@ Just put the files in your server or use Free Hosting
 
 ## TODO
 - [ ] Add support fetch cover art from iTuns or Deezer.
-- [ ] Get Station image logo.
+- [x] Get Station image logo.
 - [ ] Make songe request.
 
 ## License

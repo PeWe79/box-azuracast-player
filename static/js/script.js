@@ -17,12 +17,18 @@ fetch(apiBase + "/api/nowplaying")
 	.then((res) => res.json())
 	.then((data) => {
 		data.forEach((reslt) => {
+			const randomNumber=Math.floor(Math.random()*5);
+			const fileName = ".jpg";
+			const extension = fileName.split("/").pop();
+
 			const apiData = {
 				posterUrl: reslt.now_playing.song.art,
+				imgBrand: apiBase + "/static/uploads/" + reslt.station.shortcode + "/" + "album_art." + randomNumber + extension,
 				bgimg: reslt.now_playing.song.art,
 				title: reslt.now_playing.song.title,
 				album: reslt.now_playing.song.album,
 				name: reslt.station.description,
+				shortcode: reslt.station.shortcode,
 				artist: reslt.now_playing.song.artist,
 				streamUrl: reslt.station.listen_url,
 				api:
@@ -40,6 +46,7 @@ fetch(apiBase + "/api/nowplaying")
 				elements[i].addEventListener(eventType, callback);
 			}
 		};
+
 		async function getMusicData(data) {
 			try {
 				const resp = await fetch(data);
@@ -166,7 +173,7 @@ fetch(apiBase + "/api/nowplaying")
 				<li>
 					<p class="label-md" id="station">${musicData[i].name}</p>
 					<button class="music-item ${i === 0 ? "playing" : ""}" data-playlist-toggler data-playlist-item="${i}">
-						<img src="${musicData[i].posterUrl}" width="800" height="800" alt="${musicData[i].title} Album Poster"
+						<img src="${musicData[i].imgBrand}" width="800" height="800" alt="${musicData[i].title} Album Poster"
 							class="img-cover">
 
 						<div class="item-icon">
