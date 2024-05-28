@@ -288,7 +288,7 @@ body:hover::-webkit-scrollbar-thumb { background-color: var(--surface-variant); 
   margin-inline: auto;
   align-self: center;
   overflow: hidden;
-  border-radius: var(--radius-10);
+  border-radius: var(--radius-16);
 }
 
 .label-wrapper {

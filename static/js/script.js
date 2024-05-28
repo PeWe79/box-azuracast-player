@@ -4,7 +4,7 @@
  */
 const musicData = [];
 // AzuraCast base
-const apiBase = "https://your-azuracast-server.com";
+const apiBase = "https://s1.cloudmu.id";
 
 /**
  * Process data
@@ -79,7 +79,7 @@ fetch(apiBase + "/api/nowplaying")
 				// year: year = "Unknown",
 			} = data;
 			document.getElementById("text").innerHTML = title;
-			document.title = "Radio Player";
+			document.title = musicData[currentMusic].artist + " | " + musicData[currentMusic].title;
 			document.getElementById("album").innerHTML = album;
 			document.getElementById("hey").src = art;
 			document.getElementById("spotify").href = stream;
