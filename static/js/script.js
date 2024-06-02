@@ -10,14 +10,14 @@ const apiBase = "https://s1.cloudmu.id";
  * Process data
  */
 function processData() {
-	musicData.forEach((_data) => {});
+	musicData.forEach((_data) => { });
 }
 
 fetch(apiBase + "/api/nowplaying")
 	.then((res) => res.json())
 	.then((data) => {
 		data.forEach((reslt) => {
-			const randomNumber=Math.floor(Math.random()*5);
+			const randomNumber = Math.floor(Math.random() * 5);
 			const fileName = ".jpg";
 			const extension = fileName.split("/").pop();
 
@@ -31,12 +31,12 @@ fetch(apiBase + "/api/nowplaying")
 				shortcode: reslt.station.shortcode,
 				artist: reslt.now_playing.song.artist,
 				streamUrl: reslt.station.listen_url,
-				api:
-					apiBase +
-					"/api/nowplaying_static/" +
-					reslt.station.shortcode +
-					".json",
+				api: apiBase + "/api/nowplaying_static/" + reslt.station.shortcode + ".json",
 				musicPath: reslt.station.listen_url,
+				duration: reslt.now_playing.duration,
+				play_at: reslt.now_playing.play_at,
+				elapsed: reslt.now_playing.elapsed,
+				remaining: reslt.now_playing.remaining,
 			};
 			musicData.push(apiData);
 		});
@@ -74,7 +74,7 @@ fetch(apiBase + "/api/nowplaying")
 				album: album = station.album || "Unknown",
 				art: art = station.posterUrl,
 				stream: stream = "https://open.spotify.com/search/" +
-					encodeURIComponent(artist + " - " + title),
+				encodeURIComponent(artist + " - " + title),
 				logo: logo = "./static/images/misc/spotify.png",
 				// year: year = "Unknown",
 			} = data;
@@ -111,10 +111,10 @@ fetch(apiBase + "/api/nowplaying")
 		function getMetaData(callback) {
 			if ("mediaSession" in navigator) {
 				const {
-						title: title = station.title,
-						artist: artist = station.artist,
-						art: art = station.posterUrl,
-					} = callback,
+					title: title = station.title,
+					artist: artist = station.artist,
+					art: art = station.posterUrl,
+				} = callback,
 					img96 = {
 						src: art,
 						sizes: "96x96",
