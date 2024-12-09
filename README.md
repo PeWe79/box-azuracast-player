@@ -3,9 +3,10 @@
 Streaming AzuraCast player. Grab All stations from AzuraCast radio station.
 
 ## Screenshots
-
+Desktop:
 ![Demo Screenshots](https://raw.githubusercontent.com/PeWe79/box-azuracast-player/main/static/images/thumbs.png)
 
+Mobile:
 ![Demo Screenshots](https://raw.githubusercontent.com/PeWe79/box-azuracast-player/main/static/images/thumbs_mb.png)
 
 
