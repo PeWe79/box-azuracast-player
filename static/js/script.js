@@ -244,7 +244,7 @@ fetch(apiBase + "/api/nowplaying")
 		const changePlayerInfo = () => {
 			playerBanner.src = musicData[currentMusic].posterUrl;
 			playerBanner.setAttribute("alt", `${musicData[currentMusic].title} Album Poster`);
-			document.body.style.backgroundImage = `url(${musicData[currentMusic].backgroundImage})`;
+			document.body.style.backgroundImage = `url(${musicData[currentMusic].posterUrl})`;
 			playerArtist.textContent = musicData[currentMusic].artist;
 			playerTitle.textContent = musicData[currentMusic].title;
 			playerAlbum.textContent = musicData[currentMusic].album;
