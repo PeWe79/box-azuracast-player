@@ -88,7 +88,7 @@ function processData() {
 		document.getElementById("text").innerHTML = title;
 		document.title = artist + " | " + title;
 		document.getElementById("album").innerHTML = album;
-		document.getElementById("hey").src = art;
+		document.getElementById("artwork").src = art;
 		document.getElementById("spotify").href = stream;
 		document.getElementById("s_logo").src = logo;
 		document.getElementById("artist").innerHTML = artist;
