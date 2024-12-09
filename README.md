@@ -6,6 +6,8 @@ Streaming AzuraCast player. Grab All stations from AzuraCast radio station.
 
 ![Demo Screenshots](https://raw.githubusercontent.com/PeWe79/box-azuracast-player/main/static/images/thumbs.png)
 
+![Demo Screenshots](https://raw.githubusercontent.com/PeWe79/box-azuracast-player/main/static/images/thumbs_mb.png)
+
 
 ## Documentation.
 
