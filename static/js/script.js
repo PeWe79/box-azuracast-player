@@ -24,7 +24,7 @@ function fetchData() {
 					bgimg: reslt.now_playing.song.art,
 					title: reslt.now_playing.song.title,
 					album: reslt.now_playing.song.album,
-					name: reslt.station.description,
+					name: reslt.station.name,
 					shortcode: reslt.station.shortcode,
 					artist: reslt.now_playing.song.artist,
 					streamUrl: reslt.station.listen_url,
