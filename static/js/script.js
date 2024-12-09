@@ -117,9 +117,9 @@ function processData() {
 	function getMetaData(callback) {
 		if ("mediaSession" in navigator) {
 			const {
-				title: title = station.title,
-				artist: artist = station.artist,
-				art: art = station.posterUrl,
+				title: title = callback.title,
+				artist: artist = callback.artist,
+				art: art = callback.posterUrl,
 			} = callback,
 				img96 = {
 					src: art,
