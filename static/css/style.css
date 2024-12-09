@@ -282,13 +282,18 @@ body:hover::-webkit-scrollbar-thumb { background-color: var(--surface-variant); 
 }
 
 .music-banner {
+  position: relative;
   aspect-ratio: 1 / 1;
   background-color: var(--surface-variant);
-  max-width: 400px;
+  max-width: 500px;
   margin-inline: auto;
   align-self: center;
   overflow: hidden;
   border-radius: var(--radius-16);
+  box-shadow: 0 4px 30px rgba(54, 53, 53, 0.482);
+	backdrop-filter: blur(12.1px);
+	-webkit-backdrop-filter: blur(12.1px);
+  z-index: 2;
 }
 
 .label-wrapper {
@@ -558,6 +563,7 @@ body:hover::-webkit-scrollbar-thumb { background-color: var(--surface-variant); 
 
   .music-banner {
     aspect-ratio: unset;
+    max-width: -moz-max-content;
     max-width: max-content;
     width: 100%;
     height: 100%;
