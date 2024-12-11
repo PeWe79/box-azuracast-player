@@ -7,13 +7,13 @@ const musicData = [];
 let mscHist = [];
 
 // AzuraCast base
-const apiBase = "https://s1.cloudmu.id";
+// const apiUrl = "https://s1.cloudmu.id";
 
 /**
  * Fetch API data from Azuracast server
  */
 function fetchData() {
-	fetch(apiBase + "/api/nowplaying")
+	fetch(apiUrl + "/api/nowplaying")
 		.then((res) => (res.ok || checkError("Failed to load API data", () => location.load()), res.json()))
 		.then((data) => {
 			data.forEach((reslt) => {
@@ -23,7 +23,7 @@ function fetchData() {
 
 				const apiData = {
 					posterUrl: reslt.now_playing.song.art,
-					imgBrand: apiBase + "/static/uploads/" + reslt.station.shortcode + "/" + "album_art." + randomNumber + extension,
+					imgBrand: apiUrl + "/static/uploads/" + reslt.station.shortcode + "/" + "album_art." + randomNumber + extension,
 					bgimg: reslt.now_playing.song.art,
 					title: reslt.now_playing.song.title,
 					album: reslt.now_playing.song.album,
@@ -31,7 +31,7 @@ function fetchData() {
 					shortcode: reslt.station.shortcode,
 					artist: reslt.now_playing.song.artist,
 					streamUrl: reslt.station.listen_url,
-					api: apiBase + "/api/nowplaying_static/" + reslt.station.shortcode + ".json",
+					api: apiUrl + "/api/nowplaying_static/" + reslt.station.shortcode + ".json",
 					duration: reslt.now_playing.duration,
 					play_at: reslt.now_playing.play_at,
 					elapsed: reslt.now_playing.elapsed,
@@ -309,7 +309,7 @@ function processData() {
 			const T = musicData[currentMusic];
 			const title = reslt.now_playing.song.title || T.title;
 			const album = reslt.now_playing.song.album || T.album;
-			const artist = reslt.now_playing.song.artist || T.artist; //.replace("Loading...", FallbackName) || FallbackName;
+			const artist = reslt.now_playing.song.artist || T.artist.replace("Loading...", FallbackName) || FallbackName;
 
 			document.getElementById("text").innerHTML = title;
 			document.title = artist + " - " + title + " | " + reslt.station.name;
