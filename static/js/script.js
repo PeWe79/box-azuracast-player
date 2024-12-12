@@ -63,8 +63,7 @@ function processData() {
 				throw new Error("HTTP error! Status: " + resp.status);
 			}
 			const dataGet = await resp.json();
-			getDataSelected(dataGet.now_playing.song);
-			getMetaData(dataGet.now_playing.song);
+			getDataSelected(dataGet.now_playing);
 			getDuration(dataGet.now_playing);
 		} catch (err) {
 			console.error("Error loading data:", err);
@@ -77,22 +76,20 @@ function processData() {
 	 */
 	function getDataSelected(data) {
 		const {
-			artist: artist = station.artist,
-			title: title = station.title,
-			album: album = station.album || "Unknown",
-			art: art = station.posterUrl,
+			artist: artist = data.song.artist,
+			title: title = data.song.title,
+			album: album = data.song.album || "Unknown",
 			stream: stream = "https://open.spotify.com/search/" +
 			encodeURIComponent(artist + " - " + title),
 			logo: logo = "./static/images/misc/spotify.png",
-		} = data;
+		} = data.song;
 		document.getElementById("text").innerHTML = title;
 		document.title = artist + " | " + title;
 		document.getElementById("album").innerHTML = album;
-		document.getElementById("artwork").src = art;
 		document.getElementById("spotify").href = stream;
 		document.getElementById("s_logo").src = logo;
 		document.getElementById("artist").innerHTML = artist;
-		document.body.style.backgroundImage = "url(" + art + ")";
+		getCoverArt(artist, title);
 	}
 
 	/**
@@ -102,62 +99,6 @@ function processData() {
 		const time = callback.duration;
 		const mTime = getTimecode(time);
 		document.getElementById("d-duration").innerHTML = mTime || "Unknown";
-	}
-
-	/**
-	 * Callback metadata details
-	 * Update to mediasession metadata
-	 *
-	 * @param artist
-	 * @param title
-	 * @param album
-	 * @param cover
-	 * @param {*} callback
-	 */
-	function getMetaData(callback) {
-		if ("mediaSession" in navigator) {
-			const {
-				title: title = callback.title,
-				artist: artist = callback.artist,
-				art: art = callback.posterUrl,
-			} = callback,
-				img96 = {
-					src: art,
-					sizes: "96x96",
-					type: "image/png",
-				};
-			const img128 = {
-				src: art,
-				sizes: "128x128",
-				type: "image/png",
-			};
-			const img192 = {
-				src: art,
-				sizes: "192x192",
-				type: "image/png",
-			};
-			const img256 = {
-				src: art,
-				sizes: "256x256",
-				type: "image/png",
-			};
-			const img384 = {
-				src: art,
-				sizes: "384x384",
-				type: "image/png",
-			};
-			const img512 = {
-				src: art,
-				sizes: "512x512",
-				type: "image/png",
-			};
-			const mData = {
-				title: title,
-				artist: artist,
-				artwork: [img96, img128, img192, img256, img384, img512],
-			};
-			navigator.mediaSession.metadata = new MediaMetadata(mData);
-		}
 	}
 
 	/**
@@ -220,14 +161,6 @@ function processData() {
 	});
 
 	/**
-	 * Get current music
-	 */
-	function getCurrentMusic() {
-		getMusicData(musicData[currentMusic].api);
-		setTimeout(getCurrentMusic, 10000);
-	}
-
-	/**
 	 * Player
 	 * Change all visual information on player, based on current music
 	 */
@@ -239,15 +172,12 @@ function processData() {
 	const audioSource = new Audio(musicData[currentMusic].streamUrl);
 
 	const changePlayerInfo = () => {
-		playerBanner.src = musicData[currentMusic].posterUrl;
 		playerBanner.setAttribute("alt", `${musicData[currentMusic].title} Album Poster`);
-		document.body.style.backgroundImage = `url(${musicData[currentMusic].posterUrl})`;
 		playerArtist.textContent = musicData[currentMusic].artist;
 		playerTitle.textContent = musicData[currentMusic].title;
 		playerAlbum.textContent = musicData[currentMusic].album;
 
 		audioSource.src = musicData[currentMusic].streamUrl;
-
 		audioSource.addEventListener("loadeddata", updateDuration);
 		playMusic();
 	};
@@ -367,13 +297,13 @@ function processData() {
 		changePlaylistItem();
 	};
 	playerSkipPrevBtn.addEventListener("click", skipPrev);
-	getCurrentMusic();
 
 	/**
 	 * Volume
 	 */
 	const playerVolumeRange = document.querySelector("[data-volume]");
 	const playerVolumeBtn = document.querySelector("[data-volume-btn]");
+
 	const changeVolume = function () {
 		audioSource.volume = playerVolumeRange.value;
 		audioSource.muted = false;
@@ -401,6 +331,72 @@ function processData() {
 		}
 	};
 	playerVolumeBtn.addEventListener("click", muteVolume);
+
+	const getCoverArt = function (a, t) {
+		var urlCoverArt = musicData[currentMusic].posterUrl;
+		var xhttp = new XMLHttpRequest();
+
+		xhttp.onreadystatechange = function () {
+			if (this.readyState === 4 && this.status === 200) {
+				const data = JSON.parse(this.responseText);
+				const artworkUrl100 = (data.resultCount) ? data.results[0].artworkUrl100 : urlCoverArt;
+
+				urlCoverArt = (artworkUrl100 != urlCoverArt) ? artworkUrl100.replace('100x100bb', '512x512bb') : urlCoverArt;
+				var urlCoverArt96 = (artworkUrl100 != urlCoverArt) ? urlCoverArt.replace('512x512bb', '96x96bb') : urlCoverArt;
+				var urlCoverArt128 = (artworkUrl100 != urlCoverArt) ? urlCoverArt.replace('512x512bb', '128x128bb') : urlCoverArt;
+				var urlCoverArt192 = (artworkUrl100 != urlCoverArt) ? urlCoverArt.replace('512x512bb', '192x192bb') : urlCoverArt;
+				var urlCoverArt256 = (artworkUrl100 != urlCoverArt) ? urlCoverArt.replace('512x512bb', '256x256bb') : urlCoverArt;
+				var urlCoverArt384 = (artworkUrl100 != urlCoverArt) ? urlCoverArt.replace('512x512bb', '384x384bb') : urlCoverArt;
+
+				playerBanner.src = urlCoverArt;
+				document.body.style.backgroundImage = `url(${urlCoverArt})`;
+				playerBanner.setAttribute("alt", `${t} Album Poster`);
+
+				if ('mediaSession' in navigator) {
+					navigator.mediaSession.metadata = new MediaMetadata({
+						title: t,
+						artist: a,
+						artwork: [
+							{
+								src: urlCoverArt96,
+								sizes: '96x96',
+								type: 'image/png'
+							},
+							{
+								src: urlCoverArt128,
+								sizes: '128x128',
+								type: 'image/png'
+							},
+							{
+								src: urlCoverArt192,
+								sizes: '192x192',
+								type: 'image/png'
+							},
+							{
+								src: urlCoverArt256,
+								sizes: '256x256',
+								type: 'image/png'
+							},
+							{
+								src: urlCoverArt384,
+								sizes: '384x384',
+								type: 'image/png'
+							},
+							{
+								src: urlCoverArt,
+								sizes: '512x512',
+								type: 'image/png'
+							}
+						]
+					});
+				}
+			}
+		}
+		xhttp.open('GET', 'https://itunes.apple.com/search?term=' + a + " - " + t + '&media=music&limit=1', true);
+		xhttp.crossOrigin = "anonymous";
+		xhttp.send();
+	}
+
 	function getData() {
 		setInterval(() => {
 			getMusicData(musicData[currentMusic].api);
